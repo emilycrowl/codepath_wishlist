@@ -42,11 +42,12 @@
         android:id="@+id/etUrl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="@string/ex_https_example_example_my_item_url"
+        android:linksClickable="false"
         android:textSize="12sp"
-        app:layout_constraintTop_toTopOf="@+id/btnSubmit"
         app:layout_constraintBottom_toBottomOf="@+id/btnSubmit"
         app:layout_constraintStart_toStartOf="@+id/etItem"
-        android:hint="@string/ex_https_example_example_my_item_url" />
+        app:layout_constraintTop_toTopOf="@+id/btnSubmit" />
 
     <Button
         android:id="@+id/btnSubmit"
