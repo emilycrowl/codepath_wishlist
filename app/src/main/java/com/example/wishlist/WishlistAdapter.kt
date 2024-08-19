@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.codepath.wishlist
 
 import android.view.LayoutInflater
@@ -9,29 +11,39 @@ import com.example.wishlist.R
 
 class WishlistAdapter(private val items: MutableList<WishlistItem>) : RecyclerView.Adapter<WishlistAdapter.ViewHolder>() {
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvItem: TextView = itemView.findViewById(R.id.tvItem)
-        val tvUrl: TextView = itemView.findViewById(R.id.tvUrl)
         val tvPrice: TextView = itemView.findViewById(R.id.tvPrice)
+        val tvUrl: TextView = itemView.findViewById(R.id.tvUrl)
+
+        init {
+            // Handle long press to remove item
+            itemView.setOnLongClickListener {
+                removeItem(adapterPosition)
+                true
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val context = parent.context
-        val inflater = LayoutInflater.from(context)
-        val contactView = inflater.inflate(R.layout.wishlist_item, parent, false)
-        return ViewHolder(contactView)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.wishlist_item, parent, false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items.get(position)
+        val item = items[position]
         holder.tvItem.text = item.name
+        holder.tvPrice.text = "${item.price}"
         holder.tvUrl.text = item.url
-        holder.tvPrice.text = item.price.toString()
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
+    // Function to remove an item from the list
+    private fun removeItem(position: Int) {
+        items.removeAt(position)
+        notifyItemRemoved(position)
+    }
 }

@@ -21,31 +21,25 @@ class MainActivity : AppCompatActivity() {
         val btnSubmit : Button = findViewById(R.id.btnSubmit)
         val rvWishlist : RecyclerView = findViewById(R.id.rvWishlist)
 
-        var items: MutableList<WishlistItem> = mutableListOf()
+        val items: MutableList<WishlistItem> = mutableListOf()
         val wishlistAdapter = WishlistAdapter(items)
 
         rvWishlist.adapter = wishlistAdapter
         rvWishlist.layoutManager = LinearLayoutManager(this)
 
-        btnSubmit.setOnClickListener() {
-
-            var newItem : WishlistItem = WishlistItem(
+        btnSubmit.setOnClickListener {
+            val newItem = WishlistItem(
                 etItem.text.toString(),
                 etUrl.text.toString(),
                 etPrice.text.toString().toDouble()
-
             )
 
             items.add(newItem)
-            wishlistAdapter.notifyDataSetChanged()
+            wishlistAdapter.notifyItemInserted(items.size - 1)
 
             etItem.text.clear()
             etPrice.text.clear()
             etUrl.text.clear()
-
-
         }
-
-
     }
 }
