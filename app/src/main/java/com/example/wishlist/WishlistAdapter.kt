@@ -17,7 +17,6 @@ class WishlistAdapter(private val items: MutableList<WishlistItem>) : RecyclerVi
         val tvUrl: TextView = itemView.findViewById(R.id.tvUrl)
 
         init {
-            // Handle long press to remove item
             itemView.setOnLongClickListener {
                 removeItem(adapterPosition)
                 true
@@ -41,7 +40,6 @@ class WishlistAdapter(private val items: MutableList<WishlistItem>) : RecyclerVi
         return items.size
     }
 
-    // Function to remove an item from the list
     private fun removeItem(position: Int) {
         items.removeAt(position)
         notifyItemRemoved(position)
